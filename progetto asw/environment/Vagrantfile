@@ -70,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #
     config.vm.define "jenkins" do |node|
         node.vm.hostname = "jenkins"    
-        node.vm.network "private_network", ip: "10.11.1.51", virtualbox__intnet: true
+        node.vm.network "private_network", ip: "10.11.1.52", virtualbox__intnet: true
 
         node.vm.provider "virtualbox" do |v| 
 			v.memory = 1536 
@@ -103,7 +103,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # config.vm.box_url = "https://app.vagrantup.com/bento/boxes/ubuntu-16.04"
 
     # folder per i progetti Asw (/home/asw/projects)
-    config.vm.synced_folder "../project/", "/home/asw/projects", :mount_options => ["dmode=777", "fmode=777"]
+    config.vm.synced_folder "../project/", "/home/asw/project", :mount_options => ["dmode=777", "fmode=777"]
 
     # folder per le risorse condivise per gli ambienti Asw (/home/asw/_shared/resources e /home/asw/_shared/scripts) 
     config.vm.synced_folder "../_shared/", "/home/asw/_shared", :mount_options => ["dmode=777", "fmode=777"]
@@ -115,7 +115,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #
     config.vm.define "deploy" do |node|
         node.vm.hostname = "deploy"    
-        node.vm.network "private_network", ip: "10.11.1.121", virtualbox__intnet: true
+        node.vm.network "private_network", ip: "10.11.1.53", virtualbox__intnet: true
 
         node.vm.provider "virtualbox" do |v| 
 			v.cpus = 2
