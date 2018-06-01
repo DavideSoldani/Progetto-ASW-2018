@@ -23,5 +23,16 @@ docker run -d --name $JENKINS_CONTAINER_NAME \
 	-v /var/run/docker.sock:/var/run/docker.sock \
 	-v $(which docker):/bin/docker \
 	-v /usr/lib/x86_64-linux-gnu/libapparmor.so.1.1.0:/lib/x86_64-linux-gnu/libapparmor.so.1 \
+	-v /home/asw/_shared:/home/asw/_shared \
 	-u root \
 	jenkins:1.609.3
+
+#tempo necessario all'inizializzazione di jenkins
+sleep 1m
+
+#provisioning jenkins
+docker exec -i jenkins_container wget http://localhost:8080/jnlpJars/jenkins-cli.jar -P /usr/local
+docker exec -i jenkins_container ln -s /usr/local/jenkins-cli.jar jenkins
+docker exec -i jenkins_container java -jar jenkins -s http://localhost:8080/ help
+
+
