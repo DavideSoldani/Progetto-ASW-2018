@@ -25,6 +25,7 @@ docker run -d --name $JENKINS_CONTAINER_NAME \
 	-v /usr/lib/x86_64-linux-gnu/libapparmor.so.1.1.0:/lib/x86_64-linux-gnu/libapparmor.so.1 \
 	-v /home/asw/_shared:/home/asw/_shared \
 	-u root \
+	--restart=always \
 	jenkins:1.609.3
 
 #tempo necessario all'inizializzazione di jenkins

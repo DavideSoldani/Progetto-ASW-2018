@@ -1,148 +1,116 @@
-# 
+#
 # Vagrantfile per 3 macchine virtuali
-# una contenente Java 8, Gradle e Git
-# una contenente Java 8 e jenkins
-# e l'altra conente docker e docker compose
-# 
+# devVm: 		contenente Java 8, Gradle e Git
+# jenkinsVm: 	contenente Java 8, Docker e Jenkins (in un container Docker)
+# deployVm: 	contenente Docker
+#
 
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    # Configurazioni comuni.
+	# Configurazioni comuni.
+	config.vm.boot_timeout = 360
 
-    # Ubuntu 16.04 LTS 64 bit VirtualBox (Bento)
-    config.vm.box = "bento/ubuntu-16.04"
-    # config.vm.box_url = "https://app.vagrantup.com/bento/boxes/ubuntu-16.04"
-	
-    # folder per i progetti Asw (/home/asw/project)
-    config.vm.synced_folder "../project/", "/home/asw/project", :mount_options => ["dmode=777", "fmode=777"]
+	# Ubuntu 16.04 LTS 64 bit VirtualBox (Bento)
+	config.vm.box = "bento/ubuntu-16.04"
+	# config.vm.box_url = "https://app.vagrantup.com/bento/boxes/ubuntu-16.04"
 
-    # folder per le risorse condivise per gli ambienti Asw (/home/asw/_shared/resources e /home/asw/_shared/scripts) 
-    config.vm.synced_folder "../_shared/", "/home/asw/_shared", :mount_options => ["dmode=777", "fmode=777"]
+	# folder per le risorse condivise per gli ambienti Asw (/home/asw/_shared/resources e /home/asw/_shared/scripts)
+	config.vm.synced_folder "../_shared/", "/home/asw/_shared", :mount_options => ["dmode=777", "fmode=777"]
 
-    #
-    # Configurazione del nodo "dev", che prevede: 
-    # - Oracle Java SDK 8 
-    # - Gradle 
-    #
-    config.vm.define "devVm" do |node|
-        node.vm.hostname = "devVm"    
-        node.vm.network "private_network", ip: "10.11.1.51", virtualbox__intnet: true
+	#
+	# Configurazione del nodo "dev", che prevede:
+	# - Oracle Java SDK 8
+	# - Gradle
+	#
+	config.vm.define "devVm" do |node|
+		node.vm.hostname = "devVm"
+		node.vm.network "private_network", ip: "10.11.1.51", virtualbox__intnet: true
 
-        node.vm.provider "virtualbox" do |v| 
-			v.memory = 1536 
+		node.vm.provider "virtualbox" do |v|
+			v.memory = 1536
 			v.cpus = 1
-        end 
-        
-        node.vm.network "forwarded_port", guest: 22, host: 2222, id: 'ssh', auto_correct: true 
-        node.ssh.forward_agent = true
- 
-        # in alcuni casi è utile la pubblicazione della porta 8080 di dev (su 8088)
-        node.vm.network "forwarded_port", guest: 8088, host: 8088, id: 'http', auto_correct: true
+		end
 
-        # provisioning con bash 
-        node.vm.provision :shell, :inline => 'apt-get update'
-        node.vm.provision :shell, path: "../_shared/scripts/setup-java.sh"
-        node.vm.provision :shell, path: "../_shared/scripts/setup-gradle.sh"
+		node.vm.network "forwarded_port", guest: 22, host: 2222, id: 'ssh', auto_correct: true
+		node.ssh.forward_agent = true
 
-		# crea un link simbolico alla cartella dei progetti asw nella cartella dell'utente di default 
-        node.vm.provision :shell, :inline => 'ln -s /home/asw/project project'
-		
-        node.vm.provision :shell, 
-            inline: "echo  'configurazione nodo developer completata'"
+		# in alcuni casi è utile la pubblicazione della porta 8080 di dev (su 8088)
+		node.vm.network "forwarded_port", guest: 8088, host: 8088, id: 'http', auto_correct: true
 
-    end
+		# provisioning con bash
+		node.vm.provision :shell, :inline => 'apt-get update'
+		node.vm.provision :shell, path: "../_shared/scripts/setup-java.sh"
+		node.vm.provision :shell, path: "../_shared/scripts/setup-gradle.sh"
 
-    # Ubuntu 16.04 LTS 64 bit VirtualBox (Bento)
-    config.vm.box = "bento/ubuntu-16.04"
-    # config.vm.box_url = "https://app.vagrantup.com/bento/boxes/ubuntu-16.04"
-	
-    # folder per il progetto Asw (/home/asw/project)
-    config.vm.synced_folder "../project/", "/home/asw/project", :mount_options => ["dmode=777", "fmode=777"]
+		# folder per i progetti Asw (/home/asw/project)
+		node.vm.synced_folder "../project/", "/home/asw/project", :mount_options => ["dmode=777", "fmode=777"]
 
-    # folder per le risorse condivise per gli ambienti Asw (/home/asw/_shared/resources e /home/asw/_shared/scripts) 
-    config.vm.synced_folder "../_shared/", "/home/asw/_shared", :mount_options => ["dmode=777", "fmode=777"]
+		# crea un link simbolico alla cartella dei progetti asw nella cartella dell'utente di default
+		node.vm.provision :shell, :inline => 'ln -s /home/asw/project project'
 
-    #
-    # Configurazione del nodo "jenkins", che prevede: 
-    # - Oracle Java SDK 8 
-    # - jenkins 
-    #
-    config.vm.define "jenkinsVm" do |node|
-        node.vm.hostname = "jenkinsVm"    
-        node.vm.network "private_network", ip: "10.11.1.52", virtualbox__intnet: true
+		node.vm.provision :shell,
+			inline: "echo  '#configurazione nodo developer completata'"
+	end
 
-        node.vm.provider "virtualbox" do |v| 
-			v.memory = 1536 
+	#
+	# Configurazione del nodo "jenkins", che prevede:
+	# - Oracle Java SDK 8
+	# - Docker
+	# - Jenkins (in un container Docker)
+	#
+	config.vm.define "jenkinsVm" do |node|
+		node.vm.hostname = "jenkinsVm"
+		node.vm.network "private_network", ip: "10.11.1.52", virtualbox__intnet: true
+
+		node.vm.provider "virtualbox" do |v|
+			v.memory = 1536
 			v.cpus = 1
-			
-        end 
+		end
 
-        node.vm.network "forwarded_port", guest: 22, host: 2212, id: 'ssh', auto_correct: true 
-        node.ssh.forward_agent = true
+		node.vm.network "forwarded_port", guest: 22, host: 2212, id: 'ssh', auto_correct: true
+		node.ssh.forward_agent = true
 
-        node.vm.network "forwarded_port", guest: 8080, host: 8089, id: 'http', auto_correct: true
+		node.vm.network "forwarded_port", guest: 8080, host: 8089, id: 'http', auto_correct: true
 
-        # provisioning con bash 
-        node.vm.provision :shell, :inline => 'apt-get update'
-       	node.vm.provision :shell, path: "../_shared/scripts/setup-docker.sh"
-       	node.vm.provision :shell, path: "../_shared/scripts/jenkins_container_setup.sh"
+		# provisioning con bash
+		node.vm.provision :shell, :inline => 'apt-get update'
+		node.vm.provision :shell, path: "../_shared/scripts/setup-docker.sh"
+		node.vm.provision :shell, path: "../_shared/scripts/jenkins_container_setup.sh"
 
-		# crea un link simbolico alla cartella dei progetti asw nella cartella dell'utente di default 
-        node.vm.provision :shell, :inline => 'ln -s /home/asw/project project'
-		
-        node.vm.provision :shell, 
-            inline: "echo  'configurazione nodo jenkins completata'"
+		# crea un link simbolico alla cartella dei progetti asw nella cartella dell'utente di default
+		node.vm.provision :shell, :inline => 'ln -s /home/asw/project project'
 
-    end
+		node.vm.provision :shell,
+			inline: "echo   'configurazione nodo jenkins completata'"
+	end
 
+	#
+	# Configurazione del nodo "deploy", che prevede:
+	# - Docker
+	#
+	config.vm.define "deployVm" do |node|
+		node.vm.hostname = "deployVm"
+		node.vm.network "private_network", ip: "10.11.1.53", virtualbox__intnet: true
 
-
-     # Ubuntu 16.04 LTS 64 bit VirtualBox (Bento)
-    config.vm.box = "bento/ubuntu-16.04"
-    # config.vm.box_url = "https://app.vagrantup.com/bento/boxes/ubuntu-16.04"
-
-    # folder per i progetti Asw (/home/asw/projects)
-    config.vm.synced_folder "../project/", "/home/asw/project", :mount_options => ["dmode=777", "fmode=777"]
-
-    # folder per le risorse condivise per gli ambienti Asw (/home/asw/_shared/resources e /home/asw/_shared/scripts) 
-    config.vm.synced_folder "../_shared/", "/home/asw/_shared", :mount_options => ["dmode=777", "fmode=777"]
-
-    #
-    # Configurazione del nodo "deploy", che prevede: 
-    # - Docker 
-    #
-    config.vm.define "deployVm" do |node|
-        node.vm.hostname = "deployVm"    
-        node.vm.network "private_network", ip: "10.11.1.53", virtualbox__intnet: true
-
-        node.vm.provider "virtualbox" do |v| 
+		node.vm.provider "virtualbox" do |v|
 			v.cpus = 2
-            v.memory = 2500 
-#           
-        end 
-        
-        node.vm.network "forwarded_port", guest: 22, host: 2211, id: 'ssh', auto_correct: true
-        node.ssh.forward_agent = true
- 
-		
-        node.vm.network "forwarded_port", guest: 8080, host: 8081, id: 'http', auto_correct: true
+			v.memory = 2500
+		end
 
-        # provisioning con bash 
-	    node.vm.provision :shell, :inline => 'apt-get update' 
-        node.vm.provision :shell, path: "../_shared/scripts/setup-docker.sh"
-        
-        
-		# si configura come client per il registry presso swarm.inf.uniroma3.it:5000 
-        ## TODO node.vm.provision :shell, path: "../_shared/scripts/setup-swarm-client.sh"
+		node.vm.network "forwarded_port", guest: 22, host: 2211, id: 'ssh', auto_correct: true
+		node.ssh.forward_agent = true
 
-		# crea un link simbolico alla cartella dei progetti asw nella cartella dell'utente di default 
-        node.vm.provision :shell, :inline => 'ln -s /home/asw/project project'
+		node.vm.network "forwarded_port", guest: 8080, host: 8081, id: 'http', auto_correct: true
 
-        node.vm.provision :shell, 
-            inline: "echo  'configurazione nodo deploy completa'"
+		# provisioning con bash
+		node.vm.provision :shell, :inline => 'apt-get update'
+		node.vm.provision :shell, path: "../_shared/scripts/setup-docker.sh"
 
-    end
+		# crea un link simbolico alla cartella dei progetti asw nella cartella dell'utente di default
+		node.vm.provision :shell, :inline => 'ln -s /home/asw/project project'
 
-
+		node.vm.provision :shell,
+			inline: "echo  'configurazione nodo deploy completa'"
+	end
 end
