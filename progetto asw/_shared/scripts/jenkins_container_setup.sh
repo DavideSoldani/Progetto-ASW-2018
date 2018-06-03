@@ -2,6 +2,7 @@
 JENKINS_PORT=8080
 JENKINS_CONTAINER_NAME=jenkins_container
 JENKINS_HOME=~/jenkins_home
+JENKINS_URL=http://localhost:$JENKINS_PORT
 
 mkdir $JENKINS_HOME
 
@@ -32,8 +33,12 @@ docker run -d --name $JENKINS_CONTAINER_NAME \
 sleep 1m
 
 #provisioning jenkins
-docker exec -i jenkins_container wget http://localhost:8080/jnlpJars/jenkins-cli.jar -P /usr/local
+docker exec -i jenkins_container wget $JENKINS_URL/jnlpJars/jenkins-cli.jar -P /usr/local
 docker exec -i jenkins_container ln -s /usr/local/jenkins-cli.jar jenkins
-docker exec -i jenkins_container java -jar jenkins -s http://localhost:8080/ help
+# docker exec -i jenkins_container java -jar jenkins -s $JENKINS_URL version
+docker exec -i jenkins_container java -jar jenkins -s $JENKINS_URL install-plugin git -deploy
+docker exec -i jenkins_container java -jar jenkins -s $JENKINS_URL install-plugin ssh -deploy -restart
+
+
 
 
