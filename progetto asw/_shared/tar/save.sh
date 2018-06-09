@@ -3,9 +3,9 @@
 
 cd /home/asw/dev-git
 
-sudo tar -czf /home/asw/_shared/tar/dev-git.tar.gz * .??*
+sudo tar -czf /home/asw/_shared/tar/dev-git.tar.gz .??*
 echo "[DEV-GIT] Repository state saved in dev-git.tar.gz"
-sudo rm -rf * 
+
 if [ -d .git/ ] 
 	then
 		sudo chmod -R 777 .git/
