@@ -10,7 +10,7 @@ GRADLE_VERSION=4.5.1
 GRADLE_ARCHIVE=gradle-${GRADLE_VERSION}-bin.zip
 # e.g., gradle-4.5.1-bin.zip
 GET_GRADLE_URL=https://services.gradle.org/distributions
-GRADLE_PATH=/usr/local/gradle-${GRADLE_VERSION} 
+GRADLE_PATH=/opt/gradle-${GRADLE_VERSION} 
 # e.g. /usr/local/gradle-4.5.1
 
 function installLocalGradle {
@@ -18,7 +18,7 @@ function installLocalGradle {
 	echo "installing gradle"
 	echo "================="
 	FILE=${ASW_DOWNLOADS}/$GRADLE_ARCHIVE
-	unzip -q $FILE -d /usr/local
+	unzip -q $FILE -d /opt
 }
 
 function installRemoteGradle {
@@ -32,13 +32,13 @@ function installRemoteGradle {
 function setupGradle {
 	echo "setting up gradle"
 	if fileExists $GRADLE_PATH; then
-		ln -s $GRADLE_PATH /usr/local/gradle
+		ln -s $GRADLE_PATH /opt/gradle
 	fi
 }
 
 function setupEnvVars {
 	echo "creating gradle environment variables"
-	echo export GRADLE_HOME=/usr/local/gradle >> /etc/profile.d/gradle.sh
+	echo export GRADLE_HOME=/opt/gradle >> /etc/profile.d/gradle.sh
 	echo export PATH=\${PATH}:\${GRADLE_HOME}/bin >> /etc/profile.d/gradle.sh
 }
 
