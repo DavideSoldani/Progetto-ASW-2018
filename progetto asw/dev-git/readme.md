@@ -1,1 +1,1 @@
-This folder is synced with devVm and contains the child repository.
+This folder is synced with devVm and contains the child repository, which can be cloned by the host when devVm is up.

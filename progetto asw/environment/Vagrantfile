@@ -53,14 +53,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 		# ripristina lo stato della repository dall'archivio compresso dopo l'avvio
 		node.trigger.after :up do |trigger|
-			trigger.info = "[DEV-GIT] Restoring state of Repository"
-			trigger.run_remote = {:inline => 'tar -xf /home/asw/_shared/tar/dev-git.tar -C /home/asw/dev-git/'}
+			trigger.info = "[DEV-GIT] Restoring state of Repository..."
+			# trigger.run_remote = {:inline => 'tar -xf /home/asw/_shared/tar/dev-git.tar -C /home/asw/dev-git/'}
+			trigger.run_remote = {path: "../dev-git/restore.sh"}
 		end
 
 		# salva lo stato della repository prima dell'halt e destroy
 		node.trigger.before [:halt, :destroy] do |trigger|
-			trigger.info = "[DEV-GIT] Saving state of Repository"
-			trigger.run_remote = {path: "../_shared/tar/save.sh"}
+			trigger.info = "[DEV-GIT] Saving state of Repository..."
+			# trigger.run_remote = {path: "../_shared/tar/save.sh"}
+			trigger.run_remote = {path: "../dev-git/save.sh"}
 			trigger.on_error = :continue
 		end
 
