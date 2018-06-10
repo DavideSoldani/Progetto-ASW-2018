@@ -19,11 +19,12 @@ echo "Starting jenkins container on port $JENKINS_PORT and jenkins home is $JENK
 # https://hub.docker.com/r/jenkinsci/jenkins/tags/
 # /var/jenkins_home contains all plugins and configuration
 docker run -d --name $JENKINS_CONTAINER_NAME \
-	-p $JENKINS_PORT:8089 -p 50000:50000 \
+	-p $JENKINS_PORT:8080 -p 50000:50000 \
 	-v $JENKINS_HOME:/var/jenkins_home \
 	-v /var/run/docker.sock:/var/run/docker.sock \
 	-v $(which docker):/bin/docker \
 	-v /usr/lib/x86_64-linux-gnu/libapparmor.so.1.1.0:/lib/x86_64-linux-gnu/libapparmor.so.1 \
+	-v /home/asw/_shared:/home/asw/_shared \
 	-e JAVA_OPTS="-Djenkins.install.runSetupWizard=false" \
 	-u root \
 	--restart=always \
@@ -32,20 +33,10 @@ docker run -d --name $JENKINS_CONTAINER_NAME \
 #tempo necessario all'inizializzazione di jenkins
 sleep 1m
 
-cp basic-security.groovy $JENKINS_HOME/init.groovy.d/basic-security.groovy
-service jenkins restart
-cp -f $JENKINS_HOME/config.xml config.xml
-rm $JENKINS_HOME/init.groovy.d/basic-security.groovy
-
-sleep 1m
-
-#provisioning jenkins
+#download command line interface e restart
 docker exec -i jenkins_container wget $JENKINS_URL/jnlpJars/jenkins-cli.jar -P /usr/local
 docker exec -i jenkins_container ln -s /usr/local/jenkins-cli.jar jenkins
-# docker exec -i jenkins_container java -jar jenkins -s $JENKINS_URL version
+
+#installazione dei plugin necessari
 docker exec -i jenkins_container java -jar jenkins -s $JENKINS_URL install-plugin git -deploy
 docker exec -i jenkins_container java -jar jenkins -s $JENKINS_URL install-plugin ssh -deploy -restart
-
-
-
-
