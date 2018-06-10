@@ -3,7 +3,7 @@
 
 cd /home/asw/dev-git
 
-sudo tar -cWf /home/asw/_shared/tar/dev-git.tar.??*
+sudo tar -b 512 -cWf /home/asw/_shared/tar/dev-git.tar .??*
 echo "[DEV-GIT] Repository state saved in dev-git.tar"
 
 if [ -d .git/ ] 

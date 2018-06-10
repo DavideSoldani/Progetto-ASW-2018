@@ -61,6 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		node.trigger.before [:halt, :destroy] do |trigger|
 			trigger.info = "[DEV-GIT] Saving state of Repository"
 			trigger.run_remote = {path: "../_shared/tar/save.sh"}
+			trigger.on_error = :continue
 		end
 
 		node.vm.provision :shell,
