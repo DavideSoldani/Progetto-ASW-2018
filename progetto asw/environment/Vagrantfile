@@ -40,7 +40,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		node.vm.network "forwarded_port", guest: 8088, host: 8088, id: 'http', auto_correct: true
 
 		# folder per repository
-		# node.vm.synced_folder "../repository/", "/home/asw/repository", :mount_options => ["dmode=777", "fmode=777"]
 		node.vm.synced_folder "../dev-git/", "/home/asw/dev-git", :mount_options => ["dmode=777", "fmode=777"]
 
 		# crea un link simbolico alla cartella della repository nella cartella dell'utente di default
@@ -63,6 +62,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			trigger.run_remote = {path: "../dev-git/save.sh"}
 			trigger.on_error = :continue
 		end
+
+		# pubblica la chiave ssh sulla cartella condivisa
+		node.trigger.after :up do |trigger|
+			trigger.info = "[DEV-SSH] Copying SSH key..."
+			trigger.run_remote = {path: "../_shared/ssh/copy-key.sh"}
+		end
+
+		# rimuove la chiave ssh dalla cartella condivisa
+		node.trigger.before [:halt, :destroy] do |trigger|
+			trigger.info = "[DEV-SSH] Cleaning SSH key..."
+			trigger.run_remote = {path: "../_shared/ssh/destroy-key.sh"}
+			trigger.on_error = :continue
+		end
+
 
 		node.vm.provision :shell,
 			inline: "echo  '#configurazione nodo developer completata'"
@@ -114,7 +127,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		node.ssh.forward_agent = true
 
 		node.vm.network "forwarded_port", guest: 8080, host: 8081, id: 'http', auto_correct: true
-
+		
 		# provisioning con bash
 		node.vm.provision :shell, :inline => 'apt-get update'
 		node.vm.provision :shell, path: "../_shared/scripts/setup-docker.sh"
