@@ -1,5 +1,5 @@
 #! /bin/bash
-JAVA_PORT=8080
+JAVA_PORT=9090
 JAVA_CONTAINER_NAME=java_container
 
 
@@ -13,7 +13,7 @@ fi
 
 echo "Creating and Starting java container"
 
-cd /home/asw/_shared/deploy/
+cd /home/asw/_shared/docker/deploy/
 docker build -f Dockerfile -t java_container_image .
 docker create --name=$JAVA_CONTAINER_NAME java_container_image
 docker start -i $JAVA_CONTAINER_NAME
