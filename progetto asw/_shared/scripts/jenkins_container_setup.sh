@@ -1,10 +1,9 @@
 #! /bin/bash
 JENKINS_PORT=8080
 JENKINS_CONTAINER_NAME=jenkins_container
-JENKINS_HOME=~/jenkins_home
+JENKINS_HOME=/home/asw/_shared/jenkins_configuration/jenkins_home
 JENKINS_URL=http://localhost:$JENKINS_PORT
 
-mkdir $JENKINS_HOME
 
 JenkinsContainerId=`docker ps -qa --filter "name=$JENKINS_CONTAINER_NAME"`
 if [ -n "$JenkinsContainerId" ]

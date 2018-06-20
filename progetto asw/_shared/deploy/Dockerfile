@@ -4,7 +4,7 @@
 
 FROM frolvlad/alpine-oraclejdk8 
 
-ADD /jar/prova-0.0.1-SNAPSHOT.jar hello.jar
+ADD /jar/helloworld-0.0.1-SNAPSHOT.jar hello.jar
 
 EXPOSE 8080
 

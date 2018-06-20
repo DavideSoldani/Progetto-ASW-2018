@@ -1,0 +1,53 @@
+Started by upstream project "[8mha:////4H1Ekdq6ATY2qpSro8XwzmMGoOge8ea0E1vdb1PVcyIcAAAAoR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZR/az8JP2Covys1OQSVSODpNLMnBR9AIn5nifKAAAA[0mproject build" build number [8mha:////4Ll3qjKtRqKXcdFIb+1kAe3+yoymZY3MS08gyFjLsNV8AAAAoR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBjH9rPwk/YKi/KzU5BJVI4Ok0sycFH0LADFwG2fLAAAA[0m8
+originally caused by:
+ Started by an SCM change
+Started by upstream project "[8mha:////4H1Ekdq6ATY2qpSro8XwzmMGoOge8ea0E1vdb1PVcyIcAAAAoR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgZR/az8JP2Covys1OQSVSODpNLMnBR9AIn5nifKAAAA[0mproject build" build number [8mha:////4Ll3qjKtRqKXcdFIb+1kAe3+yoymZY3MS08gyFjLsNV8AAAAoR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBjH9rPwk/YKi/KzU5BJVI4Ok0sycFH0LADFwG2fLAAAA[0m8
+originally caused by:
+ Started by an SCM change
+Building in workspace /var/jenkins_home/workspace/deploy
+[SSH] script:
+
+/home/asw/_shared/deploy/java_container_setup.sh
+
+
+[SSH] executing...
+unable to prepare context: unable to evaluate symlinks in Dockerfile path: lstat /home/vagrant/Dockerfile: no such file or directory
+Stopping and removing existing java container
+java_container
+java_container
+Creating and Starting java container
+e42c279618cb5b8aca1abcd8bc568398fbe7870ccd9ab45e3fd4ca99327618c6
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.2.RELEASE)
+
+2018-06-20 07:52:16.490  INFO 1 --- [           main] it.prova.TestApplication                 : Starting TestApplication on e42c279618cb with PID 1 (/hello.jar started by root in /)
+2018-06-20 07:52:16.500  INFO 1 --- [           main] it.prova.TestApplication                 : The following profiles are active: english
+2018-06-20 07:52:16.702  INFO 1 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@5b1d2887: startup date [Wed Jun 20 07:52:16 GMT 2018]; root of context hierarchy
+2018-06-20 07:52:18.566  INFO 1 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-06-20 07:52:18.620  INFO 1 --- [           main] it.prova.TestApplication                 : Started TestApplication in 3.497 seconds (JVM running for 5.527)
+Hello World!
+H
+e
+l
+l
+o
+ 
+W
+o
+r
+l
+d
+!
+2018-06-20 07:52:18.656  INFO 1 --- [       Thread-2] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@5b1d2887: startup date [Wed Jun 20 07:52:16 GMT 2018]; root of context hierarchy
+2018-06-20 07:52:18.662  INFO 1 --- [       Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+
+[SSH] completed
+[SSH] exit-status: 0
+
+Finished: SUCCESS
