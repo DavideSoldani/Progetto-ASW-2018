@@ -1,0 +1,96 @@
+Started by user unknown or anonymous
+ln builds/lastSuccessfulBuild /var/jenkins_home/jobs/project build/lastSuccessful failed
+java.nio.file.FileSystemException: /var/jenkins_home/jobs/project build/lastSuccessful: Protocol error
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:91)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+	at sun.nio.fs.UnixFileSystemProvider.createSymbolicLink(UnixFileSystemProvider.java:457)
+	at java.nio.file.Files.createSymbolicLink(Files.java:1043)
+	at hudson.Util.createSymlink(Util.java:1353)
+	at hudson.model.Run.createSymlink(Run.java:1933)
+	at hudson.model.Run.updateSymlinks(Run.java:1914)
+	at hudson.model.Run.execute(Run.java:1792)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:97)
+	at hudson.model.Executor.run(Executor.java:429)
+ln builds/lastStableBuild /var/jenkins_home/jobs/project build/lastStable failed
+java.nio.file.FileSystemException: /var/jenkins_home/jobs/project build/lastStable: Protocol error
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:91)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+	at sun.nio.fs.UnixFileSystemProvider.createSymbolicLink(UnixFileSystemProvider.java:457)
+	at java.nio.file.Files.createSymbolicLink(Files.java:1043)
+	at hudson.Util.createSymlink(Util.java:1353)
+	at hudson.model.Run.createSymlink(Run.java:1933)
+	at hudson.model.Run.updateSymlinks(Run.java:1915)
+	at hudson.model.Run.execute(Run.java:1792)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:97)
+	at hudson.model.Executor.run(Executor.java:429)
+Building in workspace /var/jenkins_home/workspace/project build
+Cloning the remote Git repository
+Cloning repository ssh://vagrant@10.11.1.51/home/asw/dev-git/.git
+ > git init /var/jenkins_home/workspace/project build # timeout=10
+Fetching upstream changes from ssh://vagrant@10.11.1.51/home/asw/dev-git/.git
+ > git --version # timeout=10
+using GIT_SSH to set credentials 
+ > git fetch --tags --progress ssh://vagrant@10.11.1.51/home/asw/dev-git/.git +refs/heads/*:refs/remotes/origin/*
+[WARNING] temp file /var/jenkins_home/workspace/project build@tmp/ssh2053160038635071781.key not deleted
+ > git config remote.origin.url ssh://vagrant@10.11.1.51/home/asw/dev-git/.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url ssh://vagrant@10.11.1.51/home/asw/dev-git/.git # timeout=10
+Fetching upstream changes from ssh://vagrant@10.11.1.51/home/asw/dev-git/.git
+using GIT_SSH to set credentials 
+ > git fetch --tags --progress ssh://vagrant@10.11.1.51/home/asw/dev-git/.git +refs/heads/*:refs/remotes/origin/*
+[WARNING] temp file /var/jenkins_home/workspace/project build@tmp/ssh4789915498660937883.key not deleted
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision b4ff6142ea0a232be9bccdff376c3a1063b9654a (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f b4ff6142ea0a232be9bccdff376c3a1063b9654a
+Commit message: "Restore classpath & project"
+ > git rev-list --no-walk b4ff6142ea0a232be9bccdff376c3a1063b9654a # timeout=10
+[SSH] script:
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+export PATH=/opt/gradle/bin:$PATH >> ~/.bash_profile
+if [ -d child-repo ]; then rm -rf child-repo; fi
+mkdir child-repo
+git clone ../asw/dev-git/.git child-repo/
+cd child-repo/helloworld-project
+gradle build
+
+cd /home/asw/_shared/docker/deploy
+if [ -d jar ]; then rm -rf jar; fi
+mkdir jar
+cp /home/vagrant/child-repo/helloworld-project/build/libs/helloworld-0.0.1-SNAPSHOT.jar jar/
+
+rm -rf /home/vagrant/child-repo
+
+[SSH] executing...
+Cloning into 'child-repo'...
+done.
+Starting a Gradle Daemon (subsequent builds will be faster)
+:compileJava
+:processResources NO-SOURCE
+:classes
+:bootJar
+:jar SKIPPED
+:assemble
+:compileTestJava
+:processTestResources NO-SOURCE
+:testClasses
+:test
+2018-06-20 11:35:51.634  INFO 2375 --- [       Thread-5] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@5a156637: startup date [Wed Jun 20 11:35:50 UTC 2018]; root of context hierarchy
+:check
+:build
+
+BUILD SUCCESSFUL in 29s
+4 actionable tasks: 4 executed
+
+[SSH] completed
+[SSH] exit-status: 0
+
+Triggering a new build of [8mha:////4OwQBp3EiliBQGk65zStulUqjg2gMCW0L6zMJDQq5dfhAAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYe/az8JP2U1IKc/Ep9AE110wvBAAAA[0mdeploy
+Triggering a new build of [8mha:////4OwQBp3EiliBQGk65zStulUqjg2gMCW0L6zMJDQq5dfhAAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAy2EgYe/az8JP2U1IKc/Ep9AE110wvBAAAA[0mdeploy
+Finished: SUCCESS

@@ -1,0 +1,66 @@
+Started by user unknown or anonymous
+Building in workspace /var/jenkins_home/workspace/deploy
+[SSH] script:
+
+/home/asw/_shared/deploy/java_container_setup.sh
+
+
+[SSH] executing...
+Stopping and removing existing java container
+java_container
+java_container
+Creating and Starting java container
+Sending build context to Docker daemon  7.248MB
+Step 1/5 : FROM frolvlad/alpine-oraclejdk8
+ ---> 9dd045ce8335
+Step 2/5 : ADD /jar/helloworld-0.0.1-SNAPSHOT.jar hello.jar
+ ---> b1c7a492a386
+Step 3/5 : EXPOSE 8080
+ ---> Running in d97e7470566c
+Removing intermediate container d97e7470566c
+ ---> 5432b8d03baf
+Step 4/5 : ENTRYPOINT ["/usr/bin/java", "-Xmx128m", "-Xms128m"]
+ ---> Running in 9c9b737d8ae6
+Removing intermediate container 9c9b737d8ae6
+ ---> fddcf5d0e5c5
+Step 5/5 : CMD ["-jar", "-Dspring.profiles.active=english", "hello.jar"]
+ ---> Running in d39e250c76e3
+Removing intermediate container d39e250c76e3
+ ---> 514cde305a96
+Successfully built 514cde305a96
+Successfully tagged java_container_image:latest
+09e5634472bdc0ea99ba5cb1c8a349bc6b560b95450307bfec8ce4cc0d297252
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.2.RELEASE)
+
+2018-06-20 10:41:40.088  INFO 1 --- [           main] it.prova.TestApplication                 : Starting TestApplication on 09e5634472bd with PID 1 (/hello.jar started by root in /)
+2018-06-20 10:41:40.092  INFO 1 --- [           main] it.prova.TestApplication                 : The following profiles are active: english
+2018-06-20 10:41:40.186  INFO 1 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@52d455b8: startup date [Wed Jun 20 10:41:40 GMT 2018]; root of context hierarchy
+2018-06-20 10:41:40.709  INFO 1 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-06-20 10:41:40.723  INFO 1 --- [           main] it.prova.TestApplication                 : Started TestApplication in 1.16 seconds (JVM running for 1.643)
+Hello World!
+H
+e
+l
+l
+o
+ 
+W
+o
+r
+l
+d
+!
+2018-06-20 10:41:40.728  INFO 1 --- [       Thread-2] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@52d455b8: startup date [Wed Jun 20 10:41:40 GMT 2018]; root of context hierarchy
+2018-06-20 10:41:40.730  INFO 1 --- [       Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+
+[SSH] completed
+[SSH] exit-status: 0
+
+Finished: SUCCESS

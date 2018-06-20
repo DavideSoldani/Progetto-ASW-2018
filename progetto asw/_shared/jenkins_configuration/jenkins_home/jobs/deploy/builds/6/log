@@ -1,0 +1,38 @@
+Started by user unknown or anonymous
+Building in workspace /var/jenkins_home/workspace/deploy
+[SSH] script:
+
+/home/asw/_shared/deploy/java_container_setup.sh
+
+
+[SSH] executing...
+Creating and Starting java container
+Sending build context to Docker daemon  13.87kB
+Step 1/5 : FROM frolvlad/alpine-oraclejdk8
+latest: Pulling from frolvlad/alpine-oraclejdk8
+ff3a5c916c92: Pulling fs layer
+c4f576d46465: Pulling fs layer
+321e72dc16ca: Pulling fs layer
+c4f576d46465: Verifying Checksum
+c4f576d46465: Download complete
+ff3a5c916c92: Verifying Checksum
+ff3a5c916c92: Download complete
+ff3a5c916c92: Pull complete
+c4f576d46465: Pull complete
+321e72dc16ca: Verifying Checksum
+321e72dc16ca: Download complete
+ADD failed: stat /var/lib/docker/tmp/docker-builder785534780/jar/prova-0.0.1-SNAPSHOT.jar: no such file or directory
+Unable to find image 'java_container_image:latest' locally
+321e72dc16ca: Pull complete
+Digest: sha256:f623b810ff0059df6a3ddbc5ba233bc441ced972e048e6a917c2e5f673cb4dc9
+Status: Downloaded newer image for frolvlad/alpine-oraclejdk8:latest
+ ---> 9dd045ce8335
+Step 2/5 : ADD /jar/prova-0.0.1-SNAPSHOT.jar hello.jar
+Error response from daemon: Get https://registry-1.docker.io/v2/library/java_container_image/manifests/latest: Get https://auth.docker.io/token?scope=repository%3Alibrary%2Fjava_container_image%3Apull&service=registry.docker.io: dial tcp: lookup auth.docker.io on 10.0.2.3:53: read udp 10.0.2.15:37462->10.0.2.3:53: i/o timeout
+Error: No such container: java_container
+
+[SSH] completed
+[SSH] exit-status: 1
+
+Build step 'Execute shell script on remote host using ssh' marked build as failure
+Finished: FAILURE

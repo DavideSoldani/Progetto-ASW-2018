@@ -1,0 +1,25 @@
+Started by user unknown or anonymous
+Building in workspace /var/jenkins_home/workspace/deploy
+[SSH] script:
+
+/home/asw/_shared/deploy/java_container_setup.sh
+
+
+[SSH] executing...
+ADD failed: stat /var/lib/docker/tmp/docker-builder346375116/jar/helloworld-0.0.1-SNAPSHOT.jar: no such file or directory
+Error: Unable to access jarfile hello.jar
+Stopping and removing existing java container
+java_container
+java_container
+Creating and Starting java container
+Sending build context to Docker daemon  13.87kB
+Step 1/5 : FROM frolvlad/alpine-oraclejdk8
+ ---> 9dd045ce8335
+Step 2/5 : ADD jar/helloworld-0.0.1-SNAPSHOT.jar /hello.jar
+0c318406d68bbd0fec96d83c2d6270e42d8184fbe29acbb54d14162b4a7eb23a
+
+[SSH] completed
+[SSH] exit-status: 1
+
+Build step 'Execute shell script on remote host using ssh' marked build as failure
+Finished: FAILURE
