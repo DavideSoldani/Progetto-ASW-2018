@@ -39,7 +39,6 @@ docker run -d --name $JENKINS_CONTAINER_NAME \
 	--restart=always \
 	$JENKINS_IMAGE_NAME
 
-
 # Tempo necessario all'inizializzazione di jenkins
 sleep 1m
 
