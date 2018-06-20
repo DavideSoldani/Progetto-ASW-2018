@@ -2,8 +2,4 @@
 .vagrant
 downloads
 dev-key
-jenkins_home/war/
-jenkins_home/logs/
-jenkins_home/secrets/
-jenkins_home/queue/
-jenkins_home/.java
+war
