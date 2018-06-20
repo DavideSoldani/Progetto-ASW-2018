@@ -86,6 +86,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# - Oracle Java SDK 8
 	# - Docker
 	# - Jenkins (in un container Docker)
+	# - il deploy dell'applicazione in un altro container docker
 	#
 	config.vm.define "jenkinsVm" do |node|
 		node.vm.hostname = "jenkinsVm"
@@ -108,31 +109,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 		node.vm.provision :shell,
 			inline: "echo   'configurazione nodo jenkins completata'"
-	end
-
-	#
-	# Configurazione del nodo "deploy", che prevede:
-	# - Docker
-	#
-	config.vm.define "deployVm" do |node|
-		node.vm.hostname = "deployVm"
-		node.vm.network "private_network", ip: "10.11.1.53", virtualbox__intnet: true
-
-		node.vm.provider "virtualbox" do |v|
-			v.cpus = 2
-			v.memory = 2500
-		end
-
-		node.vm.network "forwarded_port", guest: 22, host: 2211, id: 'ssh', auto_correct: true
-		node.ssh.forward_agent = true
-
-		node.vm.network "forwarded_port", guest: 8080, host: 8081, id: 'http', auto_correct: true
-		
-		# provisioning con bash
-		node.vm.provision :shell, :inline => 'apt-get update'
-		node.vm.provision :shell, path: "../_shared/scripts/setup-docker.sh"
-
-		node.vm.provision :shell,
-			inline: "echo  'configurazione nodo deploy completa'"
 	end
 end
