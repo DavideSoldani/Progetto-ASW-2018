@@ -2,4 +2,10 @@
 .vagrant
 downloads
 dev-key
-war
+!/jenkins_home/
+/jenkins_home/**
+!/jenkins_home/jobs/
+!/jenkins_home/secrets/
+!/jenkins_home/config
+!/jenkins_home/credentials
+!/jenkins_home/org.jvnet.hudson.plugins.SSHBuildWrapper
