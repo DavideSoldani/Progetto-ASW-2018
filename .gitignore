@@ -2,10 +2,3 @@
 .vagrant
 downloads
 dev-key
-progetto\ asw/_shared/jenkins_configuration/jenkins_home/*
-!progetto\ asw/_shared/jenkins_configuration/jenkins_home/jobs/
-!progetto\ asw/_shared/jenkins_configuration/jenkins_home/secrets/hudson.util.Secret
-!progetto\ asw/_shared/jenkins_configuration/jenkins_home/secrets/master.key
-!progetto\ asw/_shared/jenkins_configuration/jenkins_home/config
-!progetto\ asw/_shared/jenkins_configuration/jenkins_home/credentials
-!progetto\ asw/_shared/jenkins_configuration/jenkins_home/org.jvnet.hudson.plugins.SSHBuildWrapper
