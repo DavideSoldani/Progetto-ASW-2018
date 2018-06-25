@@ -1,3 +1,7 @@
+* text=auto eol=lf
+*.* -eol # or set another default value
+*.sh eol=lf
+
 # Set the default behavior, in case people don't have core.autocrlf set.
 * text=auto
 
@@ -8,9 +12,6 @@
 *.sh text eol=lf
 /_hooks/* text=auto eol=lf
 
-# Declare files that will always have CRLF line endings on checkout.
-#*.sln text eol=crlf
-
 # Denote all files that are truly binary and should not be modified.
 #*.png binary
 #*.jpg binary
@@ -20,3 +21,4 @@
 # https://help.github.com/articles/dealing-with-line-endings/
 # https://stackoverflow.com/questions/1552749/difference-between-cr-lf-lf-and-cr-line-break-types
 # https://github.com/alexkaratarakis/gitattributes/blob/master/Web.gitattributes
+
