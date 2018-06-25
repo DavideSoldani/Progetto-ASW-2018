@@ -6,7 +6,7 @@ cd /home/asw/dev-git
 # fi
 
 echo "[DEV-GIT] Saving Git hooks..."
-cp .git/hooks/* _hooks/
+cp -n .git/hooks/* _hooks/
 rm _hooks/*.sample
 echo "[DEV-GIT] Git hooks saved."
 
