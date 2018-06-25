@@ -4,6 +4,12 @@ cd /home/asw/dev-git
 # 	then
 # 		sudo rm dev-git.bundle
 # fi
+
+echo "[DEV-GIT] Saving Git hooks..."
+cp .git/hooks/* _hooks/
+rm _hooks/*.sample
+echo "[DEV-GIT] Git hooks saved."
+
 git bundle create dev-git.bundle --all
 git bundle verify dev-git.bundle
 echo "[DEV-GIT] Repository state saved in dev-git.bundle"

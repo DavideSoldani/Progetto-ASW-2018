@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "[DEV-GIT] Sending hook to Jenkins server..."
+curl http://10.11.1.52/git/notifyCommit?url=ssh://vagrant@10.11.1.51/home/asw/dev-git/.git
+echo "[DEV-GIT] Hook sent."
