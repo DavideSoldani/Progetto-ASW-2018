@@ -1,5 +1,5 @@
 * text=auto eol=lf
-*.* -eol # or set another default value
+*.* -eol
 *.sh eol=lf
 
 # Set the default behavior, in case people don't have core.autocrlf set.
