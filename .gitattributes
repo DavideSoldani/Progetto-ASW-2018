@@ -6,7 +6,7 @@
 #*.c text
 #*.h text
 *.sh text eol=lf
-/_hooks/* text eol=lf
+/_hooks/* text=auto eol=lf
 
 # Declare files that will always have CRLF line endings on checkout.
 #*.sln text eol=crlf
