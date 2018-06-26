@@ -28,7 +28,7 @@ Per controllare lo stato della repository di devVm:
 - da SSH: git ls-tree --full-tree -r HEAD
 
 Indirizzo dell'istanza jenkins del container:
-localhost:8089
+- localhost:8089
 
 Funzionamento:
 - Clonare il repository di devVm
@@ -36,5 +36,5 @@ Funzionamento:
 - Effettuare commit e push delle modifiche al repository di devVm
 - A questo punto l'istanza jenkins contenuta nel container docker della macchina virtuale jenkinsVm si attiverà, effettuerà build e test dell'applicazione all'interno di devVm e la rilascerà in un nuovo container docker all'interno della macchina jenkinsVm
 
-Nota: l'istanza jenkins è settata di default per attiverarsi in ogni caso ogni 10 minuti (sia che sia stato effettuata una modifica al repository di devVm che no).
+Nota: l'istanza jenkins è settata di default per attivarsi in ogni caso ogni 10 minuti (sia che sia stato effettuata una modifica al repository di devVm che no).
 
